@@ -1,0 +1,1365 @@
+﻿MASTER DEVELOPMENT PROMPT: TRUSTED SUPERMARKETCAL
+
+
+1. PROJECT IDENTITY AND DEVELOPMENT ROLE
+
+
+Act as a senior full-stack software engineer, enterprise web application architect, Firebase specialist, UI/UX designer and quality assurance engineer with over 35 years of experience designing reliable business applications.
+
+
+Build a complete, functional, production-quality, mobile-first web application called:
+
+
+TRUSTED SUPERMARKETCAL
+
+
+Business: Trusted SupermarketCal
+Location: Asaba, Delta State, Nigeria
+Currency: Nigerian Naira (₦)
+Application type: Supermarket Point of Sale (POS), Sales Calculator, Product Management and Sales Monitoring System.
+
+
+This is a real business application, not a static demonstration.
+
+
+Use the supplied UI reference image as the primary visual direction. Reproduce its premium appearance, layout, colour combination, product cards, rounded panels, typography, navigation and general visual hierarchy.
+
+
+However, improve its portal separation and responsiveness.
+
+
+The application must have exactly TWO main portals:
+
+
+1. ADMIN PORTAL — exclusively for the owner.
+2. SALES PERSON PORTAL — for registered supermarket employees.
+
+
+Both portals must use the same Firebase database, so changes made by the administrator reflect immediately in the salesperson portal.
+
+
+Do not create separate databases or duplicate product records.
+
+
+---
+
+
+2. TECHNOLOGY AND BACKEND
+
+
+Use:
+
+
+- React for the frontend.
+- TypeScript for reliable application logic.
+- Tailwind CSS for styling.
+- Firebase Authentication for login.
+- Firebase Firestore as the primary database.
+- Firebase Storage for product photographs.
+- Firebase Security Rules for access control.
+- Firebase Hosting or another suitable deployment platform.
+
+
+The application must work properly on Android phones, iPhones, tablets, laptops and desktop computers.
+
+
+Use a responsive layout rather than creating separate applications for different devices.
+
+
+All important operations must work, including authentication, saving products, editing products, calculating sales, saving transactions and generating reports.
+
+
+Do not use mock data as a substitute for actual Firebase functionality.
+
+
+3. AUTHENTICATION AND TWO-PORTAL ACCESS
+
+
+Implement Google authentication using Firebase Authentication.
+
+
+Also provide an appropriate email authentication option if needed.
+
+
+Administrator account
+
+
+The administrator's authorised email is:
+
+
+chukwudebeifeanyi6@gmail.com
+
+
+This email must be the ONLY account automatically granted administrator privileges.
+
+
+After successful authentication with this exact Google email, redirect the user directly to the ADMIN PORTAL.
+
+
+Do not allow another email to become an administrator simply by selecting an administrator role.
+
+
+Enforce the administrator identity through trusted backend configuration and Firebase Security Rules, not just frontend conditions.
+
+
+Salesperson accounts
+
+
+Every other successfully authenticated email account must be assigned to the SALES PERSON PORTAL.
+
+
+On a salesperson's first successful login, display a compulsory profile completion form.
+
+
+Required information:
+
+
+- Full name.
+- Email address (automatically obtained from Google).
+- Office role/job title.
+- Phone number (optional).
+- Profile photograph (optional).
+
+
+The salesperson must specify their actual position in the office, such as:
+
+
+- Cashier.
+- Sales Representative.
+- Shop Attendant.
+- Storekeeper.
+- Sales Supervisor.
+- Other.
+
+
+The role field must be compulsory.
+
+
+The salesperson must complete the form before accessing the sales calculator.
+
+
+Save the information in Firestore.
+
+
+On subsequent logins, take the salesperson directly to their portal without asking them to complete the form again.
+
+
+Do not give salespeople administrator permissions.
+
+
+If an account's email changes or an account is disabled, handle it safely.
+
+
+---
+
+
+4. VISUAL DESIGN AND BRAND IDENTITY
+
+
+Use the supplied UI reference as the visual guide.
+
+
+The design should communicate professionalism, reliability, simplicity and premium business software.
+
+
+Colour palette
+
+
+Primary: Deep Navy — #071B3A
+
+
+Secondary: Fresh Green — #12A84A
+
+
+Accent: Bright Blue — #1769E0
+
+
+Main background: #F1F5FC
+
+
+Card background: #FFFFFF
+
+
+Text: #15243A
+
+
+Muted text: #718096
+
+
+Use navy and green as the dominant two-colour identity.
+
+
+Use blue sparingly for secondary actions, information and interactive states.
+
+
+Avoid excessive colours, unnecessary gradients, cluttered interfaces and oversized decorative elements.
+
+
+Visual characteristics
+
+
+- Premium rounded cards.
+- Subtle shadows.
+- Clean typography.
+- Excellent spacing.
+- Clear visual hierarchy.
+- Large touch-friendly buttons.
+- Attractive product photography.
+- Smooth but lightweight transitions.
+- Clearly visible prices and totals.
+- Professional icons.
+- Consistent spacing and alignment.
+
+
+The supermarket name must appear prominently at the top.
+
+
+Include the slogan:
+
+
+Shop Smart. Pay Less.
+
+
+Do not allow visual effects to slow down the calculator.
+
+
+---
+
+
+5. ADMIN PORTAL
+
+
+The administrator must have complete control over the supermarket's application.
+
+
+Create the following sections:
+
+
+A. Admin Dashboard
+
+
+Display the following business statistics:
+
+
+- Total sales today.
+- Total sales this week.
+- Total sales this month.
+- Total number of transactions.
+- Total items sold.
+- Total quantity sold.
+- Number of active salespeople.
+- Products running low on stock.
+- Best-selling products.
+- Sales performance by salesperson.
+
+
+Use attractive dashboard cards and appropriate charts.
+
+
+All figures must come from actual Firestore transactions, not hardcoded numbers.
+
+
+B. Product Management
+
+
+The administrator must be able to:
+
+
+- Add products.
+- Edit products.
+- Delete products.
+- Upload product photographs from a phone or computer.
+- Change product names.
+- Change product categories.
+- Change prices.
+- Change stock quantities.
+- Add and remove colour options.
+- Add and remove sizes.
+- Mark products as active or unavailable.
+
+
+Every change must be saved to Firestore and immediately reflected in all salesperson portals.
+
+
+Include a confirmation before deleting a product.
+
+
+Never delete historical sales records when deleting a product.
+
+
+C. Product Pricing Structure
+
+
+Each product must support two pricing structures.
+
+
+TYPE 1: ORIGINAL
+
+
+A product without size variations.
+
+
+Example:
+
+
+Coca-Cola 50cl
+
+
+Retail: ₦600
+
+
+Small-business: ₦550
+
+
+TYPE 2: SIZES / VARIATIONS
+
+
+Products with different sizes or packaging options.
+
+
+Example:
+
+
+Big Bull Rice:
+
+
+- 1kg.
+- 5kg.
+- 10kg.
+- 25kg.
+
+
+Each size must have its own retail and small-business prices.
+
+
+Allow the administrator to create custom size labels, including:
+
+
+- Small.
+- Medium.
+- Large.
+- 500ml.
+- 1 litre.
+- 5 litres.
+- 10kg.
+- 25kg.
+
+
+Do not restrict sizes to three options.
+
+
+D. Colour Variations
+
+
+Allow optional colour choices for products that need them.
+
+
+Examples:
+
+
+- Red.
+- Blue.
+- Green.
+- Black.
+- White.
+
+
+Display colours as clickable swatches.
+
+
+The administrator can add, edit and remove colours.
+
+
+Allow colour-specific stock quantities and optional SKU identifiers.
+
+
+E. Inventory Management
+
+
+Display:
+
+
+- Product name.
+- Product photograph.
+- Category.
+- Available sizes.
+- Stock quantity.
+- Retail price.
+- Small-business price.
+- Stock status.
+
+
+Allow the administrator to update stock quantities.
+
+
+Provide low-stock alerts.
+
+
+Prevent a salesperson from selling more units than the available stock.
+
+
+Stock changes must be handled safely when multiple salespeople are working simultaneously.
+
+
+F. Sales Monitoring — ADMIN ONLY
+
+
+This is a very important section.
+
+
+Create a private Sales Monitoring dashboard accessible exclusively to the administrator.
+
+
+The salesperson must NOT have access to this dashboard, its figures, its reports or its underlying sales-performance data.
+
+
+The administrator should be able to see:
+
+
+1. Total amount generated by each salesperson.
+2. Total transactions completed by each salesperson.
+3. Total quantity of goods sold by each salesperson.
+4. Names of all registered salespeople.
+5. Their office roles.
+6. Their individual sales history.
+7. Their daily, weekly and monthly performance.
+8. Their transaction dates and times.
+9. The products each salesperson sold.
+10. The quantities sold.
+11. The prices charged.
+12. Discounts applied.
+13. Payment received.
+14. Outstanding balances, where applicable.
+
+
+Create a searchable employee table.
+
+
+Example:
+
+
+| Salesperson | Office Role | Transactions | Total Sales |
+| Ifeanyi | Cashier | 24 | ₦84,750 |
+| Adaeze | Shop Attendant | 18 | ₦62,500 |
+| Chinedu | Sales Representative | 15 | ₦48,200 |
+
+
+These are demonstration records only. Replace them with actual Firebase data.
+
+
+Clicking a salesperson's name should open that employee's individual sales report.
+
+
+The administrator must be able to filter by:
+
+
+- Employee.
+- Date.
+- Product.
+- Transaction.
+- Sales period.
+
+
+Provide CSV export for reports.
+
+
+IMPORTANT SECURITY REQUIREMENT:
+
+
+Sales monitoring information must never be exposed to salesperson accounts.
+
+
+Do not simply hide the dashboard visually. Enforce access restrictions using Firestore Security Rules and secure backend operations.
+
+
+Salespeople should not be able to read another salesperson's transactions or the private management reports.
+
+
+G. Salesperson Management
+
+
+The administrator should be able to:
+
+
+- View registered salespeople.
+- View their full names and office roles.
+- View their email addresses.
+- Activate or deactivate their accounts.
+- Review their individual performance.
+- Disable access when necessary.
+
+
+The administrator must not need to manually approve every new salesperson registration.
+
+
+Other authenticated email accounts can register automatically as salespeople, subject to compulsory profile completion.
+
+
+H. Business Reports
+
+
+Create reports showing:
+
+
+- Daily revenue.
+- Weekly revenue.
+- Monthly revenue.
+- Products sold.
+- Quantity sold.
+- Retail versus small-business transactions.
+- Salesperson performance.
+- Discounts.
+- Stock movement.
+
+
+Include date filters and downloadable reports.
+
+
+---
+
+
+6. SALES PERSON PORTAL
+
+
+The salesperson portal must be simple, fast and easy to operate.
+
+
+Its primary purpose is calculating customer purchases and completing sales.
+
+
+Do not display the administrator's private monitoring information.
+
+
+A. Sales Dashboard
+
+
+Display:
+
+
+- Supermarket name.
+- Salesperson's name.
+- Their office role.
+- Current date.
+- Sales calculator.
+- Product search.
+- Product categories.
+- Cart.
+
+
+Keep the interface focused on selling.
+
+
+B. Product Search
+
+
+Provide a responsive search bar.
+
+
+Salespeople should be able to search by product name.
+
+
+Include category filters:
+
+
+1. Beverages and Drinks.
+2. Rice, Grains and Pasta.
+3. Cooking Oil and Seasoning.
+4. Snacks and Biscuits.
+5. Dairy and Breakfast.
+6. Toiletries and Personal Care.
+7. Household and Cleaning.
+8. Frozen Foods.
+9. Baby Products.
+10. Other Products.
+
+
+Product cards should display:
+
+
+- Product photograph.
+- Product name.
+- Available size.
+- Available colour variations, where applicable.
+- Applicable selling price.
+- Stock availability.
+- Add button.
+
+
+The salesperson must only see the prices applicable to the selected pricing mode.
+
+
+C. Adding Products to Cart
+
+
+When a salesperson selects a product:
+
+
+- Add it directly if it has no variations.
+- Ask for a size if it has size variations.
+- Ask for a colour if it has colour variations.
+- Ask for both when necessary.
+
+
+Do not add a product until required variations have been selected.
+
+
+D. Shopping Cart
+
+
+Each cart line should display:
+
+
+- Product name.
+- Selected size.
+- Selected colour.
+- Unit price.
+- Quantity.
+- Line total.
+- Increase quantity button.
+- Decrease quantity button.
+- Remove button.
+
+
+The salesperson should be able to modify the cart instantly.
+
+
+Display:
+
+
+- Subtotal.
+- Discount.
+- Grand total.
+- Amount paid.
+- Change to return.
+
+
+E. Pricing Mode
+
+
+At the top of the calculator, provide a prominent two-option toggle:
+
+
+RETAIL | SMALL BUSINESS
+
+
+Retail mode uses retail prices.
+
+
+Small-business mode uses small-business prices.
+
+
+Switching between the two must instantly recalculate every item in the cart.
+
+
+Do not clear the cart when switching pricing modes.
+
+
+The selected pricing mode must be recorded with the transaction.
+
+
+F. Discount
+
+
+Allow an optional discount.
+
+
+Support:
+
+
+- Fixed Naira discount.
+- Percentage discount.
+
+
+Validate discounts.
+
+
+The discount must never cause a negative total.
+
+
+The administrator should be able to configure discount permissions and limits.
+
+
+G. Amount Paid and Change
+
+
+Provide an amount-paid field.
+
+
+Calculate change automatically.
+
+
+Example:
+
+
+Grand Total: ₦8,500
+
+
+Amount Paid: ₦10,000
+
+
+Change: ₦1,500
+
+
+Clearly indicate insufficient payment when the amount paid is below the total.
+
+
+Do not allow a completed, fully paid transaction to be recorded as paid when the customer has not paid the required amount.
+
+
+H. Completing a Sale
+
+
+Add a prominent COMPLETE SALE button.
+
+
+When pressed:
+
+
+1. Validate the cart.
+2. Validate quantities.
+3. Validate payment.
+4. Check current stock.
+5. Save the transaction to Firestore.
+6. Deduct sold quantities from stock atomically.
+7. Record the salesperson's identity.
+8. Save the date and time.
+9. Generate a unique receipt number.
+10. Clear the cart after successful completion.
+
+
+Prevent duplicate transactions if the button is tapped repeatedly.
+
+
+Use a Firestore transaction or secure backend function for inventory deduction and sale recording.
+
+
+I. Share Receipt on WhatsApp
+
+
+Add a WhatsApp receipt button.
+
+
+Generate a clean receipt containing:
+
+
+TRUSTED SUPERMARKETCAL
+
+
+Asaba, Delta State, Nigeria
+
+
+Receipt Number
+
+
+Date and Time
+
+
+Salesperson's Name
+
+
+Pricing Mode
+
+
+Items Purchased
+
+
+Quantity
+
+
+Unit Price
+
+
+Line Total
+
+
+Subtotal
+
+
+Discount
+
+
+Grand Total
+
+
+Amount Paid
+
+
+Change
+
+
+Thank you for shopping with us!
+
+
+Open WhatsApp with the receipt message prefilled.
+
+
+Do not automatically send the message.
+
+
+Allow the salesperson to choose the recipient and send it.
+
+
+J. Sales History
+
+
+The salesperson should be able to view their own completed transactions.
+
+
+Allow them to:
+
+
+- Search their receipts.
+- View transaction details.
+- Reopen receipts.
+- Share receipts again.
+
+
+They must not be able to edit or delete completed transactions.
+
+
+They must not see other employees' sales histories.
+
+
+---
+
+
+7. SALESPERSON CUSTOMIZATION
+
+
+Give salespeople limited control over their own interface.
+
+
+Create a section called:
+
+
+MY DISPLAY SETTINGS
+
+
+They may customize:
+
+
+- Background colour.
+- Approved colour themes.
+- Light or dark appearance.
+- Sidebar arrangement.
+- Product-card arrangement.
+- Compact or comfortable display density.
+- Visible non-sensitive dashboard shortcuts.
+
+
+Allow the salesperson to select a custom background colour.
+
+
+Save these preferences to their individual user profile.
+
+
+IMPORTANT:
+
+
+These settings must only affect that salesperson's personal interface.
+
+
+They must NOT change:
+
+
+- Product prices.
+- Product records.
+- Stock quantities.
+- Other employees' interfaces.
+- Administrator settings.
+- Business reports.
+- Authentication.
+- Permissions.
+- Sales calculations.
+
+
+Do not let salesperson customizations interfere with the established application design or core functionality.
+
+
+Provide a Restore Default Design button.
+
+
+---
+
+
+8. PRELOADED PRODUCTS AND PRICE RESEARCH
+
+
+Preload exactly 40 realistic sample supermarket products.
+
+
+Distribute them across the following ten categories, with four products in each category.
+
+
+1. Beverages and Drinks.
+2. Rice, Grains and Pasta.
+3. Cooking Oil and Seasoning.
+4. Snacks and Biscuits.
+5. Dairy and Breakfast.
+6. Toiletries and Personal Care.
+7. Household and Cleaning.
+8. Frozen Foods.
+9. Baby Products.
+10. Other Products.
+
+
+Use recognisable Nigerian supermarket brands and realistic packaging.
+
+
+Research current Nigerian supermarket prices before creating the sample catalogue.
+
+
+Prioritise:
+
+
+- Asaba and Delta State retailers.
+- Nigerian online supermarkets.
+- Nigerian grocery price comparison sources.
+- Current retail listings.
+
+
+Use Nigerian Naira.
+
+
+Every product must have a retail price and a lower small-business price.
+
+
+For products with sizes, each size must have its own two prices.
+
+
+Use realistic product images or suitable placeholders.
+
+
+All sample products, images, prices, sizes, colours and stock quantities must be editable or replaceable by the administrator.
+
+
+Do not include medicines, pharmaceutical products or drugs.
+
+
+Mark the initial catalogue clearly as SAMPLE INVENTORY so the administrator understands that these are not verified supplier purchase prices.
+
+
+Useful research references:
+
+
+- https://www.finelib.com/knowledge/compare/food/
+- https://freshmart.com.ng/
+- https://shoprite.ng/food/
+- https://www.jumia.com.ng/groceries/
+- https://groceries.ng/
+
+
+Examples of researched market reference prices include:
+
+
+- Big Bull Rice 5kg: approximately ₦7,666.
+- Big Bull Rice 10kg: approximately ₦15,654.
+- Big Bull Rice 25kg: approximately ₦36,188.
+- Golden Terra Soya Oil 5L: approximately ₦17,890.
+- Vegetable Oil 750ml: approximately ₦1,700.
+- Indomie 70g: approximately ₦130 on one supermarket listing.
+- Golden Morn 400g: approximately ₦940.
+
+
+These are reference listings, not guaranteed Asaba supplier prices.
+
+
+Do not present estimated prices as verified quotations.
+
+
+---
+
+
+9. FIREBASE DATABASE STRUCTURE
+
+
+Organise the database properly.
+
+
+Suggested Firestore collections:
+
+
+users
+
+
+- uid
+- fullName
+- email
+- officeRole
+- phone
+- photoURL
+- accountType
+- active
+- displaySettings
+- createdAt
+
+
+products
+
+
+- productId
+- name
+- description
+- imageURL
+- category
+- pricingType
+- sizes
+- colours
+- retailPrice
+- smallBusinessPrice
+- stockQuantity
+- active
+- createdAt
+- updatedAt
+
+
+sales
+
+
+- saleId
+- receiptNumber
+- salespersonUid
+- salespersonName
+- salespersonRole
+- pricingMode
+- items
+- subtotal
+- discountType
+- discountValue
+- discountAmount
+- grandTotal
+- amountPaid
+- change
+- createdAt
+
+
+inventory_movements
+
+
+- movementId
+- productId
+- variationId
+- quantityChanged
+- movementType
+- referenceSaleId
+- performedBy
+- createdAt
+
+
+settings
+
+
+- storeName
+- storeAddress
+- currency
+- defaultTheme
+- discountPermissions
+- lowStockThreshold
+
+
+Adapt the structure where necessary, but maintain clear relationships between products, users, inventory and transactions.
+
+
+Use server timestamps where appropriate.
+
+
+Store a snapshot of each product's name, size, colour and selling price inside the transaction so historical receipts remain correct even after the administrator changes the product.
+
+
+Firebase security
+
+
+Create and test restrictive Firestore Security Rules.
+
+
+Rules must guarantee:
+
+
+- Only the administrator can create, update or delete products.
+- Only the administrator can change global business settings.
+- Salespeople can read active product information.
+- Salespeople can create their own valid sales transactions through a trusted transaction operation.
+- Salespeople cannot edit completed transactions.
+- Salespeople cannot read other employees' sales records.
+- Only the administrator can access all sales records and performance reports.
+- Salespeople can update only their own permitted profile and display preferences.
+- No salesperson can change their account type to administrator.
+- No unauthorised user can access private information.
+
+
+Do not trust role information supplied by the frontend.
+
+
+---
+
+
+10. RESPONSIVE DESIGN
+
+
+The application must work exceptionally well on phones and computers.
+
+
+Desktop
+
+
+Use a professional dashboard layout.
+
+
+- Left sidebar navigation.
+- Main sales workspace.
+- Product catalogue.
+- Cart panel.
+- Separate administrator reporting workspace.
+
+
+Mobile
+
+
+Optimise for Android phones first.
+
+
+- Compact header.
+- Search bar.
+- Horizontal category filters.
+- Responsive product grid.
+- Easy-to-tap product cards.
+- Cart accessible without excessive scrolling.
+- Large quantity controls.
+- Fixed or easily accessible checkout action.
+- Responsive forms and tables.
+
+
+On small screens, place the cart in a dedicated full-screen view or slide-up panel.
+
+
+Never make the user zoom to operate the calculator.
+
+
+The cashier must be able to complete a sale comfortably with one hand.
+
+
+---
+
+
+11. PERFORMANCE AND RELIABILITY
+
+
+This is a business calculator. Accuracy is more important than decorative animations.
+
+
+Requirements:
+
+
+- Fast product search.
+- Fast cart updates.
+- Immediate price recalculation.
+- No unnecessary page reloads.
+- Optimised image sizes.
+- Efficient Firestore queries.
+- Proper loading states.
+- Clear error messages.
+- Reliable form validation.
+- No duplicate sales.
+- No negative quantities.
+- No accidental stock overselling.
+- No incorrect change calculations.
+
+
+Use integer Naira amounts or safe integer arithmetic.
+
+
+For percentage discounts, define and consistently apply rounding to the nearest Naira.
+
+
+Implement appropriate Firestore persistence for cached data and user preferences.
+
+
+If the device is offline, clearly show the connection status. Do not silently claim a sale has been completed when it has not been securely saved to Firebase.
+
+
+---
+
+
+12. QUALITY ASSURANCE: MANDATORY TESTING
+
+
+Do not finish the project until you have tested the calculator and corrected any errors.
+
+
+Create test products with the following prices:
+
+
+| Product | Retail | Small Business |
+| Coca-Cola 50cl | ₦600 | ₦550 |
+| Big Bull Rice 5kg | ₦7,600 | ₦7,200 |
+| Big Bull Rice 1kg | ₦1,650 | ₦1,550 |
+| Indomie 70g | ₦150 | ₦135 |
+| Vegetable Oil 1L | ₦2,800 | ₦2,600 |
+| Storage Container | ₦1,800 | ₦1,600 |
+| Detergent 900g | ₦3,200 | ₦3,000 |
+| Peak Milk 400g | ₦2,400 | ₦2,200 |
+
+
+Run at least these five tests.
+
+
+TEST 1: Retail basket
+
+
+- Coca-Cola 50cl × 2 = ₦1,200.
+- Big Bull Rice 5kg × 1 = ₦7,600.
+- Indomie 70g × 3 = ₦450.
+
+
+Expected subtotal: ₦9,250.
+
+
+Amount paid: ₦10,000.
+
+
+Expected change: ₦750.
+
+
+TEST 2: Small-business basket
+
+
+- Vegetable Oil 1L × 2 = ₦5,200.
+- Indomie 70g × 10 = ₦1,350.
+
+
+Expected subtotal: ₦6,550.
+
+
+Verify that small-business prices are applied to every line.
+
+
+TEST 3: Mixed rice sizes
+
+
+- Big Bull Rice 5kg × 2 = ₦14,400.
+- Big Bull Rice 1kg × 1 = ₦1,550.
+
+
+Expected subtotal: ₦15,950.
+
+
+Verify correct size selection and pricing.
+
+
+TEST 4: Colour variations
+
+
+- Blue Storage Container × 2 = ₦3,600.
+- Green Storage Container × 1 = ₦1,800.
+- Detergent 900g × 1 = ₦3,200.
+
+
+Expected subtotal: ₦8,600.
+
+
+Verify that colour selections are recorded correctly.
+
+
+TEST 5: Percentage discount
+
+
+- Vegetable Oil 2L × 1 = ₦5,000.
+- Peak Milk 400g × 1 = ₦2,400.
+
+
+Expected subtotal: ₦7,400.
+
+
+Discount: 10% = ₦740.
+
+
+Expected grand total: ₦6,660.
+
+
+Amount paid: ₦7,000.
+
+
+Expected change: ₦340.
+
+
+Also test:
+
+
+- Switching from retail to small-business pricing while products are in the cart.
+- Increasing and decreasing quantities.
+- Removing products.
+- Insufficient payment.
+- Zero and negative discount validation.
+- Insufficient stock.
+- Simultaneous sales by two employees.
+- Duplicate checkout prevention.
+- Product price changes during an active session.
+- Receipt sharing.
+- Product image uploads.
+- Firebase persistence.
+- Admin and salesperson access restrictions.
+- Salesperson display customization.
+
+
+Manually verify every expected total against the displayed result.
+
+
+Do not claim that testing succeeded unless the tests have actually been executed.
+
+
+---
+
+
+13. FINAL ACCEPTANCE REQUIREMENTS
+
+
+Before declaring the project complete, confirm the following:
+
+
+1. Google login works.
+2. The specified administrator email enters the admin portal.
+3. Other authenticated emails enter the salesperson portal.
+4. First-time salesperson profile completion is compulsory.
+5. The administrator can manage all products and prices.
+6. Product changes reflect in every salesperson portal.
+7. Salespeople cannot modify products or prices.
+8. The sales calculator works correctly.
+9. Both pricing modes work.
+10. Size and colour selections work.
+11. Discounts calculate correctly.
+12. Change calculates correctly.
+13. Completed transactions are saved to Firebase.
+14. Stock quantities update correctly.
+15. WhatsApp receipts work.
+16. The administrator can monitor individual and total sales.
+17. Salespeople cannot access private management information.
+18. Salesperson display customization works independently.
+19. The app is responsive on phones and computers.
+20. All five mandatory basket tests pass.
+
+
+Do not deliver a frontend-only prototype.
+
+
+Do not leave important buttons inactive.
+
+
+Do not use fake login functionality.
+
+
+Do not hardcode dashboard statistics.
+
+
+Do not expose administrator information to salespeople.
+
+
+Do not rebuild the project unnecessarily if a working Firebase project already exists. Inspect and preserve existing configuration where applicable.
+
+
+FINAL OBJECTIVE:
+
+
+Deliver a premium, reliable, easy-to-use supermarket POS application that allows Trusted SupermarketCal to manage its products, calculate customer purchases accurately, record sales and monitor employee performance from one central Firebase-powered system.
+
+
+The application should feel like a professional commercial product, not a school project or generic template.

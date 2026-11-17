@@ -1,0 +1,85 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny all access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == "chukwudebeifeanyi6@gmail.com" ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // Admins collection
+    match /admins/{adminId} {
+      allow get, list: if isSignedIn();
+      allow create, update, delete: if isAdmin() && isValidId(adminId);
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow get: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow list: if isAdmin() || (isSignedIn() && resource.data.uid == request.auth.uid);
+      allow create: if isSignedIn() && isValidId(userId) && request.auth.uid == userId &&
+        (incoming().accountType == 'salesperson' || (incoming().accountType == 'admin' && isAdmin()));
+      allow update: if isSignedIn() && isValidId(userId) && (
+        isAdmin() ||
+        (request.auth.uid == userId && incoming().accountType == existing().accountType)
+      );
+      allow delete: if isAdmin() && isValidId(userId);
+    }
+
+    // Products collection
+    match /products/{productId} {
+      allow get, list: if isSignedIn();
+      allow create, delete: if isAdmin() && isValidId(productId);
+      allow update: if isSignedIn() && isValidId(productId) && (
+        isAdmin() ||
+        incoming().diff(existing()).affectedKeys().hasOnly(['stockQuantity', 'sizes', 'colours', 'updatedAt'])
+      );
+    }
+
+    // Sales collection
+    match /sales/{saleId} {
+      allow get: if isSignedIn() && (resource.data.salespersonUid == request.auth.uid || isAdmin());
+      allow list: if isSignedIn() && (resource.data.salespersonUid == request.auth.uid || isAdmin());
+      allow create: if isSignedIn() && isValidId(saleId) && incoming().salespersonUid == request.auth.uid;
+      allow update, delete: if false; // Completed sales are immutable
+    }
+
+    // Inventory Movements collection
+    match /inventory_movements/{movementId} {
+      allow get, list: if isAdmin();
+      allow create: if isSignedIn() && isValidId(movementId) && incoming().performedBy == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // Settings collection
+    match /settings/{settingId} {
+      allow get, list: if isSignedIn();
+      allow create, update, delete: if isAdmin() && isValidId(settingId);
+    }
+  }
+}

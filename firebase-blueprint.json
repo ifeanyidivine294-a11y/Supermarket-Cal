@@ -1,0 +1,134 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile for staff and admin",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "fullName": { "type": "string", "maxLength": 120 },
+        "email": { "type": "string", "maxLength": 120 },
+        "officeRole": { "type": "string", "maxLength": 80 },
+        "phone": { "type": "string", "maxLength": 30 },
+        "photoURL": { "type": "string", "maxLength": 1000 },
+        "accountType": { "type": "string", "enum": ["admin", "salesperson"] },
+        "active": { "type": "boolean" },
+        "displaySettings": { "type": "object" },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["uid", "fullName", "email", "officeRole", "accountType", "active"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Admin marker document for verified admin email",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 120 },
+        "assignedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["uid", "email"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Supermarket product catalogue item",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 150 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "imageURL": { "type": "string", "maxLength": 1000 },
+        "category": { "type": "string", "maxLength": 100 },
+        "pricingType": { "type": "string", "enum": ["original", "sizes"] },
+        "sizes": { "type": "array" },
+        "colours": { "type": "array" },
+        "retailPrice": { "type": "number" },
+        "smallBusinessPrice": { "type": "number" },
+        "stockQuantity": { "type": "number" },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["productId", "name", "category", "pricingType", "retailPrice", "smallBusinessPrice", "stockQuantity", "active"]
+    },
+    "Sale": {
+      "title": "Sale",
+      "description": "Point of sale transaction record",
+      "type": "object",
+      "properties": {
+        "saleId": { "type": "string", "maxLength": 128 },
+        "receiptNumber": { "type": "string", "maxLength": 64 },
+        "salespersonUid": { "type": "string", "maxLength": 128 },
+        "salespersonName": { "type": "string", "maxLength": 120 },
+        "salespersonRole": { "type": "string", "maxLength": 80 },
+        "pricingMode": { "type": "string", "enum": ["retail", "small_business"] },
+        "items": { "type": "array" },
+        "subtotal": { "type": "number" },
+        "discountType": { "type": "string", "enum": ["fixed", "percentage", "none"] },
+        "discountValue": { "type": "number" },
+        "discountAmount": { "type": "number" },
+        "grandTotal": { "type": "number" },
+        "amountPaid": { "type": "number" },
+        "change": { "type": "number" },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["saleId", "receiptNumber", "salespersonUid", "salespersonName", "pricingMode", "items", "subtotal", "grandTotal", "amountPaid", "change"]
+    },
+    "InventoryMovement": {
+      "title": "InventoryMovement",
+      "description": "Log of stock adjustments and sale deductions",
+      "type": "object",
+      "properties": {
+        "movementId": { "type": "string", "maxLength": 128 },
+        "productId": { "type": "string", "maxLength": 128 },
+        "variationId": { "type": "string", "maxLength": 128 },
+        "quantityChanged": { "type": "number" },
+        "movementType": { "type": "string", "enum": ["sale", "restock", "adjustment"] },
+        "referenceSaleId": { "type": "string", "maxLength": 128 },
+        "performedBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["movementId", "productId", "quantityChanged", "movementType", "performedBy"]
+    },
+    "Setting": {
+      "title": "Setting",
+      "description": "Store configuration and POS parameters",
+      "type": "object",
+      "properties": {
+        "storeName": { "type": "string", "maxLength": 120 },
+        "storeAddress": { "type": "string", "maxLength": 200 },
+        "currency": { "type": "string", "maxLength": 10 },
+        "defaultTheme": { "type": "string", "maxLength": 50 },
+        "discountPermissions": { "type": "object" },
+        "lowStockThreshold": { "type": "number" }
+      },
+      "required": ["storeName", "storeAddress", "currency"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles including office role and personal display settings"
+    },
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Admin access lookup list"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Supermarket product catalogue"
+    },
+    "/sales/{saleId}": {
+      "schema": "Sale",
+      "description": "Completed point of sale transactions"
+    },
+    "/inventory_movements/{movementId}": {
+      "schema": "InventoryMovement",
+      "description": "Audit trail of inventory deductions and restocks"
+    },
+    "/settings/{settingId}": {
+      "schema": "Setting",
+      "description": "Supermarket store settings and thresholds"
+    }
+  }
+}

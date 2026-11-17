@@ -1,0 +1,6 @@
+{
+  "name": "Trusted SupermarketCal",
+  "description": "Point of Sale (POS), Sales Calculator, Product Management and Real-Time Monitoring System for Trusted SupermarketCal in Asaba, Nigeria.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
